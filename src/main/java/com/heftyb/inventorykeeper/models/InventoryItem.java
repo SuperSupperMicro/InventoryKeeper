@@ -9,7 +9,7 @@ public class InventoryItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int inventoryitemid;
+    private long inventoryitemid;
 
     private String name;
 
@@ -21,11 +21,11 @@ public class InventoryItem {
     public InventoryItem() {
     }
 
-    public int getInventoryitemid() {
+    public long getInventoryitemid() {
         return inventoryitemid;
     }
 
-    public void setInventoryitemid(int inventoryitemid) {
+    public void setInventoryitemid(long inventoryitemid) {
         this.inventoryitemid = inventoryitemid;
     }
 
