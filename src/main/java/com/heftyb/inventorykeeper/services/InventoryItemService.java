@@ -29,17 +29,17 @@ public class InventoryItemService {
 
     public InventoryItem findInventoryItemById(long id) throws ResourceNotFoundException {
         return invRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(("Inventory id" + id + "not found!")));
+                .orElseThrow(() -> new ResourceNotFoundException(("Inventory id " + id + " not found!")));
     }
 
     @Transactional
     public InventoryItem save(InventoryItem inventoryItem) {
         InventoryItem newInventoryItem = new InventoryItem();
 
-        if (inventoryItem.getInventoryitemid() != 0) {
-            invRepo.findById(inventoryItem.getInventoryitemid())
-                    .orElseThrow(() -> new ResourceNotFoundException(("Inventory id" + inventoryItem.getInventoryitemid() + "not found!")));
-            newInventoryItem.setInventoryitemid(inventoryItem.getInventoryitemid());
+        if (inventoryItem.getInventoryItemId() != 0) {
+            invRepo.findById(inventoryItem.getInventoryItemId())
+                    .orElseThrow(() -> new ResourceNotFoundException(("Inventory id " + inventoryItem.getInventoryItemId() + " not found!")));
+            newInventoryItem.setInventoryItemId(inventoryItem.getInventoryItemId());
         }
 
         newInventoryItem.setName(inventoryItem.getName());
@@ -47,5 +47,25 @@ public class InventoryItemService {
         newInventoryItem.setFdcId(inventoryItem.getFdcId());
 
         return invRepo.save(newInventoryItem);
+    }
+
+    @Transactional
+    public void delete(long id) {
+        invRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Inventory id " + id + " not found!"));
+        invRepo.deleteById(id);
+    }
+
+    @Transactional
+    public InventoryItem update(InventoryItem inventoryItem, long id) {
+
+        InventoryItem savedItem = invRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Inventory id " + id + " not found!"));
+
+        savedItem.setName(inventoryItem.getName());
+        savedItem.setDescription(inventoryItem.getDescription());
+        savedItem.setFdcId(inventoryItem.getFdcId());
+
+        return invRepo.save(savedItem);
     }
 }

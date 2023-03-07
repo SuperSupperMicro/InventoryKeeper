@@ -1,7 +1,6 @@
 package com.heftyb.inventorykeeper.models;
 
 import jakarta.persistence.*;
-import org.springframework.data.domain.Auditable;
 
 @Entity
 @Table(name = "InventoryItems")
@@ -9,7 +8,7 @@ public class InventoryItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long inventoryitemid;
+    private long inventoryItemId;
 
     private String name;
 
@@ -21,12 +20,12 @@ public class InventoryItem {
     public InventoryItem() {
     }
 
-    public long getInventoryitemid() {
-        return inventoryitemid;
+    public long getInventoryItemId() {
+        return inventoryItemId;
     }
 
-    public void setInventoryitemid(long inventoryitemid) {
-        this.inventoryitemid = inventoryitemid;
+    public void setInventoryItemId(long inventoryitemid) {
+        this.inventoryItemId = inventoryitemid;
     }
 
     public String getName() {
@@ -56,7 +55,7 @@ public class InventoryItem {
     @Override
     public String toString() {
         return "InventoryItem{" +
-                "inventoryitemid=" + inventoryitemid +
+                "inventoryitemid=" + inventoryItemId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", fdcId='" + fdcId + '\'' +
