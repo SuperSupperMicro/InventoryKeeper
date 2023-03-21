@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.heftyb</groupId>
-    <artifactId>InventoryKeeper</artifactId>
+    <artifactId>inventory_keeper</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Inventory Keeper</name>
     <description>Demo project for Spring Boot</description>
