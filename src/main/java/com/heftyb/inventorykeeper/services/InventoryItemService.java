@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
-@Service(value = "userService")
+@Service(value = "inventoryItemService")
 public class InventoryItemService {
 
     @Autowired

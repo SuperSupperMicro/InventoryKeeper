@@ -1,11 +1,14 @@
 package com.heftyb.inventorykeeper.controllers;
 
+import com.heftyb.inventorykeeper.config.AuthUserPrincipal;
 import com.heftyb.inventorykeeper.models.InventoryItem;
 import com.heftyb.inventorykeeper.services.InventoryItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 
 @RestController
@@ -16,7 +19,8 @@ public class InventoryItemController {
     private InventoryItemService invService;
 
     @GetMapping(value = "/", produces = "application/json")
-    public ResponseEntity<?> listAllInventoryItems() {
+    public ResponseEntity<?> listAllInventoryItems(Principal principal) {
+        System.out.println(principal.getName());
         return new ResponseEntity<>(invService.findAll(), HttpStatus.OK);
     }
 
