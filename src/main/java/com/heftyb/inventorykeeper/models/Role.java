@@ -1,14 +1,26 @@
 package com.heftyb.inventorykeeper.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
 public class Role {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long roldId;
+
     private String role;
+
+    @OneToMany(mappedBy = "role",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true)
+    @JsonIgnoreProperties(value = "role",
+    allowSetters = true)
+    private Set<UserRoles> users = new HashSet<>();
 
     public Role() {
     }
@@ -32,6 +44,14 @@ public class Role {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Set<UserRoles> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<UserRoles> users) {
+        this.users = users;
     }
 
     @Override
