@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 
 public class CurrentUser extends User {
-    private long userID;
+    private long userId;
     private String email;
 
     public CurrentUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -17,12 +17,18 @@ public class CurrentUser extends User {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 
-    public long getUserID() {
-        return userID;
+    public CurrentUser(long userId, String username, String email, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+        this.userId = userId;
+        this.email = email;
     }
 
-    public void setUserID(long userID) {
-        this.userID = userID;
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {

@@ -1,8 +1,9 @@
 package com.heftyb.inventorykeeper.controllers;
 
-import com.heftyb.inventorykeeper.config.AuthUserPrincipal;
 import com.heftyb.inventorykeeper.models.InventoryItem;
 import com.heftyb.inventorykeeper.services.InventoryItemService;
+import com.heftyb.inventorykeeper.services.RoleService;
+import com.heftyb.inventorykeeper.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,23 @@ public class InventoryItemController {
     @Autowired
     private InventoryItemService invService;
 
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private UserService userService;
+
     @GetMapping(value = "/", produces = "application/json")
     public ResponseEntity<?> listAllInventoryItems(Principal principal) {
-        System.out.println(principal.getName());
+        /**
+         * An example of how to pull the user from the request.
+         * It can also be accessed by a static call to the SecurityContextHolder
+         */
+//        AuthUserAuthentication a = (AuthUserAuthentication)principal;
+//        AuthUserDetails p = (AuthUserDetails)a.getPrincipal();
+//        System.out.println(p.getUser().toString());
+//        System.out.println(a.getAuthenticatedUserId());
+
         return new ResponseEntity<>(invService.findAll(), HttpStatus.OK);
     }
 

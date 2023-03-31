@@ -1,49 +1,50 @@
 package com.heftyb.inventorykeeper.config;
 
 
-import com.heftyb.inventorykeeper.services.UserServiceImp;
+import com.heftyb.inventorykeeper.services.CurrentUserDetailsService;
 import heftytoken.HeftyToken;
 import heftytoken.Token;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.IOException;
 
 @Component
 public class AuthFilter implements Filter {
     @Autowired
-    UserServiceImp userService;
+    CurrentUserDetailsService userService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         String headerString = ((HttpServletRequest) request).getHeader("Authorization");
 
-        if !(headerString != null) {
+        // Check for authorization headers
+        if (headerString != null) {
+            // Grab the token string
             String encodedToken = headerString.replace("Bearer ", "").trim();
+            // Decode the HeftyToken String into a new Token() instance
             Token token = HeftyToken.decodeHeftyToken(encodedToken);
-            AuthUserPrincipal authUserPrincipal = userService.loadUserById(Long.parseLong(token.getUserID()));
+            // Get the user's info from the DB and load it into a new UserDetails()
+            UserDetails userDetails = userService.loadUserById(Long.parseLong(token.getUserID()));
+            // Create a new authentication principal with our custom CurrentUser
+            Authentication authentication = new UserAuthToken(userDetails, userDetails.getAuthorities());
 
-            //// TODO: make custom token extending the AbstractAuthenticationToken class
-            ///  TODO: add in user's role form DB
+//            Authentication auth = new UsernamePasswordAuthenticationToken(
+//                    userDetails.getUsername(),
+//                    null,
+//                    AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
 
-            //        AuthUserAuthentication authentication = new AuthUserAuthentication(authUserPrincipal);
-            Authentication auth = new UsernamePasswordAuthenticationToken(
-                    authUserPrincipal.getUser(),
-                    null,
-                    AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
-
-            SecurityContextHolder.getContext().setAuthentication(auth);
+            // Load new authentication principal into the Security Context
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
+        // Proceed with the rest of the filter chain
         chain.doFilter(request, response);
     }
 }

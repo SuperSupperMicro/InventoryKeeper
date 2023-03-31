@@ -25,9 +25,6 @@ public class SecurityConfig {
 //                .authorizeHttpRequests().antMatchers("/sdkjlsd/**").permitAll()
 //                .antMatchers("/jhasdj/**").permitAll()
 //                .anyRequest().authenticated();
-        /**
-         * http.....
-         */
 
         return http.build();
     }

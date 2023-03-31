@@ -3,10 +3,13 @@ package com.heftyb.inventorykeeper.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-@Entity
+import java.io.Serializable;
+import java.util.Objects;
 
+@Entity
 @Table(name = "userRoles")
-public class UserRoles {
+@IdClass(UserRoleId.class)
+public class UserRole implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -19,10 +22,10 @@ public class UserRoles {
     @JsonIgnoreProperties(value = "users")
     private Role role;
 
-    public UserRoles() {
+    public UserRole() {
     }
 
-    public UserRoles(User user, Role role) {
+    public UserRole(User user, Role role) {
         this.user = user;
         this.role = role;
     }
@@ -49,5 +52,18 @@ public class UserRoles {
                 "user=" + user +
                 ", role=" + role +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserRole userRole = (UserRole) o;
+        return user.equals(userRole.user) && role.equals(userRole.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user, role);
     }
 }

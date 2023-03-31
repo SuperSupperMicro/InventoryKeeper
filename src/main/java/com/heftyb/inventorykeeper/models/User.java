@@ -4,11 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -24,7 +23,7 @@ public class User {
         orphanRemoval = true)
     @JsonIgnoreProperties(value = "user",
         allowSetters = true)
-    private Set<UserRoles> roles = new HashSet<>();
+    private Set<UserRole> roles = new HashSet<>();
 
     public User() {
     }
@@ -68,11 +67,11 @@ public class User {
         this.email = email;
     }
 
-    public Set<UserRoles> getRoles() {
+    public Set<UserRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<UserRoles> roles) {
+    public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
     }
 

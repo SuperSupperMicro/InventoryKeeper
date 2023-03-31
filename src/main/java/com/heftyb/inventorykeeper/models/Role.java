@@ -11,31 +11,31 @@ import java.util.Set;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long roldId;
+    private long roleId;
 
     private String role;
 
-    @OneToMany(mappedBy = "role",
+    @OneToMany(mappedBy = "user",
     cascade = CascadeType.ALL,
     orphanRemoval = true)
     @JsonIgnoreProperties(value = "role",
     allowSetters = true)
-    private Set<UserRoles> users = new HashSet<>();
+    private Set<UserRole> users = new HashSet<>();
 
     public Role() {
     }
 
-    public Role(long roldId, String role) {
-        this.roldId = roldId;
+    public Role(long roleId, String role) {
+        this.roleId = roleId;
         this.role = role;
     }
 
-    public long getRoldId() {
-        return roldId;
+    public long getRoleId() {
+        return roleId;
     }
 
-    public void setRoldId(long roldId) {
-        this.roldId = roldId;
+    public void setRoleId(long roldId) {
+        this.roleId = roldId;
     }
 
     public String getRole() {
@@ -46,18 +46,18 @@ public class Role {
         this.role = role;
     }
 
-    public Set<UserRoles> getUsers() {
+    public Set<UserRole> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<UserRoles> users) {
+    public void setUsers(Set<UserRole> users) {
         this.users = users;
     }
 
     @Override
     public String toString() {
         return "Role{" +
-                "roldId=" + roldId +
+                "roldId=" + roleId +
                 ", role='" + role + '\'' +
                 '}';
     }

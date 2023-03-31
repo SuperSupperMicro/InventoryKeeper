@@ -20,6 +20,13 @@ public class InventoryItem {
     public InventoryItem() {
     }
 
+    public InventoryItem(long inventoryItemId, String name, String description, String fdcId) {
+        this.inventoryItemId = inventoryItemId;
+        this.name = name;
+        this.description = description;
+        this.fdcId = fdcId;
+    }
+
     public long getInventoryItemId() {
         return inventoryItemId;
     }

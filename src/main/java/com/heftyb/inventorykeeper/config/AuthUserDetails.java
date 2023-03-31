@@ -1,58 +1,63 @@
 package com.heftyb.inventorykeeper.config;
 
+import com.heftyb.inventorykeeper.models.CurrentUser;
 import com.heftyb.inventorykeeper.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class AuthUserPrincipal implements UserDetails {
-    private User user;
+/**
+ * An implementation of UserDetails to hold our custom CurrentUser
+ *
+ */
+public class AuthUserDetails implements UserDetails {
+    private CurrentUser user;
 
-    public AuthUserPrincipal(User user) {
+    public AuthUserDetails(CurrentUser user) {
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return user.getAuthorities();
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return user.getUsername();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return user.isAccountNonExpired();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return user.isAccountNonLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return user.isCredentialsNonExpired();
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return user.isEnabled();
     }
 
-    public User getUser() {
+    public CurrentUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(CurrentUser user) {
         this.user = user;
     }
 }
