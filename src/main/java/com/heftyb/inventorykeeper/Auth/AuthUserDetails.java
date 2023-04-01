@@ -1,10 +1,10 @@
-package com.heftyb.inventorykeeper.config;
+package com.heftyb.inventorykeeper.Auth;
 
 import com.heftyb.inventorykeeper.models.CurrentUser;
-import com.heftyb.inventorykeeper.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -16,6 +16,11 @@ public class AuthUserDetails implements UserDetails {
 
     public AuthUserDetails(CurrentUser user) {
         this.user = user;
+    }
+
+    public AuthUserDetails(String name) {
+        CurrentUser u = new CurrentUser(name, "", new ArrayList<>());
+        this.user = u;
     }
 
     @Override

@@ -5,6 +5,12 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
+/**
+ * This class extends spring security's User class which is a temporary user model that
+ * gets used for authentication for each request. We have added a couple extra fields
+ * so when an authenticated user makes a request their user information is already loaded
+ * into the SecurityContext and available throughout the request lifecycle
+ */
 public class CurrentUser extends User {
     private long userId;
     private String email;

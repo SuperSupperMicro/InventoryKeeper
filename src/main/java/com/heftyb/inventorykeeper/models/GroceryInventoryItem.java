@@ -1,7 +1,7 @@
 package com.heftyb.inventorykeeper.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
 import java.util.Date;
 
 import static jakarta.persistence.TemporalType.TIMESTAMP;
