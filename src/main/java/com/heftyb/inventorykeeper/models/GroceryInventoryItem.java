@@ -1,22 +1,24 @@
 package com.heftyb.inventorykeeper.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
-import static jakarta.persistence.TemporalType.TIMESTAMP;
+import static jakarta.persistence.TemporalType.DATE;
 
 @Entity
-@Table(name = "groceryInventoryItem")
+@Table(name = "groceryInventoryItems")
 public class GroceryInventoryItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long groceryItemId;
 
-    @Temporal(TIMESTAMP)
+    @Temporal(DATE)
     private Date inDate;
 
-    @Temporal(TIMESTAMP)
+    @Temporal(DATE)
     private Date expDate;
 
     private String qty;
@@ -25,22 +27,23 @@ public class GroceryInventoryItem {
 
     @ManyToOne
     @JoinColumn(name = "inventoryItemId")
-    private InventoryItem item;
+    private InventoryItem inventoryItem;
 
     @ManyToOne
     @JoinColumn(name = "userId")
+    @JsonIgnore
     private User user;
 
     public GroceryInventoryItem() {
     }
 
-    public GroceryInventoryItem(long groceryItemId, Date inDate, Date expDate, String qty, String availableQty, InventoryItem item, User user) {
+    public GroceryInventoryItem(long groceryItemId, Date inDate, Date expDate, String qty, String availableQty, InventoryItem inventoryItem, User user) {
         this.groceryItemId = groceryItemId;
         this.inDate = inDate;
         this.expDate = expDate;
         this.qty = qty;
         this.availableQty = availableQty;
-        this.item = item;
+        this.inventoryItem = inventoryItem;
         this.user = user;
     }
 
@@ -84,12 +87,12 @@ public class GroceryInventoryItem {
         this.availableQty = availableQty;
     }
 
-    public InventoryItem getItem() {
-        return item;
+    public InventoryItem getInventoryItem() {
+        return inventoryItem;
     }
 
-    public void setItem(InventoryItem item) {
-        this.item = item;
+    public void setInventoryItem(InventoryItem item) {
+        this.inventoryItem = item;
     }
 
     public User getUser() {
@@ -108,7 +111,7 @@ public class GroceryInventoryItem {
                 ", expDate=" + expDate +
                 ", qty='" + qty + '\'' +
                 ", availableQty='" + availableQty + '\'' +
-                ", item=" + item +
+                ", item=" + inventoryItem +
                 ", user=" + user +
                 '}';
     }

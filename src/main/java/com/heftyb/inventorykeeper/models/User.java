@@ -15,7 +15,6 @@ public class User {
     private long userId;
 
     private String username;
-    private String googleId;
     private String email;
 
     @OneToMany(mappedBy = "user",
@@ -28,10 +27,9 @@ public class User {
     public User() {
     }
 
-    public User(long userId, String username, String googleId, String email) {
+    public User(long userId, String username, String email) {
         this.userId = userId;
         this.username = username;
-        this.googleId = googleId;
         this.email = email;
     }
 
@@ -49,14 +47,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getGoogleId() {
-        return googleId;
-    }
-
-    public void setGoogleId(String googleId) {
-        this.googleId = googleId;
     }
 
     public String getEmail() {

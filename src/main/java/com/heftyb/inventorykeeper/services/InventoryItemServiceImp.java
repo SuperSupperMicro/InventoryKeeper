@@ -34,6 +34,15 @@ public class InventoryItemServiceImp implements InventoryItemService {
                 .orElseThrow(() -> new ResourceNotFoundException(("Inventory id " + id + " not found!")));
     }
 
+    @Override
+    public List<InventoryItem> findByName(String name) {
+        List<InventoryItem> items = new ArrayList<>();
+        invRepo.findByNameContainingIgnoreCase(name)
+                .iterator()
+                .forEachRemaining(items::add);
+        return items;
+    }
+
     @Transactional
     @Override
     public InventoryItem save(InventoryItem inventoryItem) {

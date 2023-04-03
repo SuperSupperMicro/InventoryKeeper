@@ -38,13 +38,6 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User findUserByGID(String GID) {
-        User u =  userRepo.findByGoogleId(GID);
-        if (u == null) { throw new ResourceNotFoundException("GoogleID " + GID + " not found!"); }
-        return u;
-    }
-
-    @Override
     public User findUserByEmail(String email) {
         User u =  userRepo.findByEmail(email);
         if (u == null) { throw new ResourceNotFoundException("Email " + email + " not found!"); }

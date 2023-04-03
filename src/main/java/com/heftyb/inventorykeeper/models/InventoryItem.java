@@ -1,6 +1,10 @@
 package com.heftyb.inventorykeeper.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "InventoryItems")
@@ -16,6 +20,9 @@ public class InventoryItem extends Auditable {
 
     private String fdcId;
 
+    @OneToMany(mappedBy = "inventoryItem", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "item")
+    private Set<GroceryInventoryItem> groceryInventoryItems = new HashSet<>();
 
     public InventoryItem() {
     }
