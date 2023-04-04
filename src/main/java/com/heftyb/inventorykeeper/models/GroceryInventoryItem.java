@@ -10,7 +10,7 @@ import static jakarta.persistence.TemporalType.DATE;
 
 @Entity
 @Table(name = "groceryInventoryItems")
-public class GroceryInventoryItem {
+public class GroceryInventoryItem extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long groceryItemId;
