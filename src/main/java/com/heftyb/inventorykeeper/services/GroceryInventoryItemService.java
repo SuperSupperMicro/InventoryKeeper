@@ -5,7 +5,7 @@ import com.heftyb.inventorykeeper.models.GroceryInventoryItem;
 import java.util.List;
 
 public interface GroceryInventoryItemService {
-    List<GroceryInventoryItem> findAllItems();
+    List<GroceryInventoryItem> findAllItems(long id);
     GroceryInventoryItem findItemById(long id);
     List<GroceryInventoryItem>findItemByName(String name);
     GroceryInventoryItem saveItem(GroceryInventoryItem item);

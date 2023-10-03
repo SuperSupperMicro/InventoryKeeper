@@ -24,6 +24,12 @@ public class User {
         allowSetters = true)
     private Set<UserRole> roles = new HashSet<>();
 
+
+    @OneToMany(mappedBy = "user",
+    cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user")
+    private Set<GroceryInventoryItem> groceryInventoryItems = new HashSet<>();
+
     public User() {
     }
 
@@ -63,6 +69,14 @@ public class User {
 
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
+    }
+
+    public Set<GroceryInventoryItem> getGroceryInventoryItems() {
+        return groceryInventoryItems;
+    }
+
+    public void setGroceryInventoryItems(Set<GroceryInventoryItem> groceryInventoryItems) {
+        this.groceryInventoryItems = groceryInventoryItems;
     }
 
     @Override

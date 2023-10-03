@@ -9,6 +9,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -70,6 +72,17 @@ public class InventoryItemController {
         invService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/name/{query}")
+    public ResponseEntity<?> searchItems(@PathVariable String query) {
+        List<InventoryItem> list = new ArrayList<>();
+
+        invService.findByName(query)
+                .iterator()
+                .forEachRemaining(list::add);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
 }

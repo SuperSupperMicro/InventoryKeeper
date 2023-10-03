@@ -17,9 +17,10 @@ public class GroceryInventoryItemServiceImp implements GroceryInventoryItemServi
     private GroceryInventoryItemRepository groRepo;
 
     @Override
-    public List<GroceryInventoryItem> findAllItems() {
+    public List<GroceryInventoryItem> findAllItems(long id) {
         List<GroceryInventoryItem> items = new ArrayList<>();
-        groRepo.findAll()
+        groRepo
+                .findAll()
                 .iterator()
                 .forEachRemaining(items::add);
         return items;
